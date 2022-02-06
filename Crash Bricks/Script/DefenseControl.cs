@@ -17,13 +17,14 @@ public class DefenseControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow)) // 좌측이동
+        if (Input.GetMouseButton(0)) // 좌클릭으로 이동
         {
-            defenderRigidbody.AddForce(-speed, 0, 0);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow)) // 우측이동
-        {
-            defenderRigidbody.AddForce(speed, 0, 0);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity)) // 클릭한 부분으로 따라옴
+            {
+                transform.position = new Vector3(hit.point.x, 0.5f, -24.41f);
+            }
         }
     }
 }
